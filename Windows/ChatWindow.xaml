@@ -1,0 +1,190 @@
+﻿<mah:MetroWindow
+    x:Class="FireChat.Windows.ChatWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:FireChat.Windows"
+    xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:FireChat.Models"
+    Title="FireChat - {username}/{nickname}"
+    Width="800"
+    Height="450"
+    Loaded="ChatWindow_Loaded"
+    mc:Ignorable="d">
+    <Grid Margin="10">
+        <DockPanel>
+            <Grid DockPanel.Dock="Bottom">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="1">
+                    <TextBox
+                        x:Name="messageBox"
+                        Grid.Column="0"
+                        Margin="0,6"
+                        mah:TextBoxHelper.UseFloatingWatermark="True"
+                        mah:TextBoxHelper.Watermark="Type your message here"
+                        FontSize="12"
+                        MaxLength="128"
+                        MaxLines="2"
+                        MinLines="1"
+                        TextWrapping="Wrap" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1.5*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1.75*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            x:Name="quitButton"
+                            Grid.Column="0"
+                            Margin="0,0,10,0"
+                            BorderThickness="0.5"
+                            Click="quitButton_Click"
+                            Content="Quit"
+                            Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                        <Button
+                            x:Name="logoutButton"
+                            Grid.Column="1"
+                            Margin="0,0,10,0"
+                            BorderThickness="0.5"
+                            Click="logoutButton_Click"
+                            Content="Logout"
+                            Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                        <Button
+                            x:Name="deleteAccountButton"
+                            Grid.Column="2"
+                            Margin="0,0,10,0"
+                            BorderThickness="0.5"
+                            Click="deleteAccountButton_Click"
+                            Content="Delete Account"
+                            Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                        <CheckBox
+                            x:Name="anonymousCheckbox"
+                            Grid.Column="3"
+                            Margin="0,0,10,0"
+                            Content="Send new messages as anonymous" />
+                        <Button
+                            x:Name="sendButton"
+                            Grid.Column="4"
+                            BorderThickness="0.5"
+                            Click="sendButton_Click"
+                            Content="Send Message"
+                            Style="{StaticResource MahApps.Styles.Button.Square.Accent}" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
+            <ListView
+                x:Name="chatListView"
+                Grid.Row="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                BorderThickness="0.5"
+                IsTabStop="False"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <Border
+                                        Margin="0"
+                                        Padding="4"
+                                        BorderBrush="LightGray"
+                                        BorderThickness="0.5">
+                                        <ContentPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontFamily="Fira Mono" TextWrapping="Wrap">
+                            <Run FontWeight="SemiBold" Text="{Binding TimeSent, StringFormat='dd.MM.yyyy HH:mm:ss'}" />
+                            <Run Text="-" />
+                            <Run FontWeight="SemiBold" Text="{Binding SenderNickname}" />
+                            <Run FontWeight="Bold" Text="&gt;" />
+                            <Run Text="{Binding Content}" />
+                        </TextBlock>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <!--<ListView.ItemsSource>
+                    <x:Array Type="model:ChatMessageModel">
+                        <model:ChatMessageModel
+                            Content="Hello, how are you?"
+                            SenderNickname="User1"
+                            SenderUsername="user1"
+                            TimeSent="2024-05-10 09:30:23 AM" />
+                        <model:ChatMessageModel
+                            Content="I'm good, thank you!"
+                            SenderNickname="User2"
+                            SenderUsername="user2"
+                            TimeSent="2024-05-10 09:35:29 AM" />
+                        <model:ChatMessageModel
+                            Content="What have you been up to lately?"
+                            SenderNickname="User1"
+                            SenderUsername="user1"
+                            TimeSent="2024-05-10 09:40 AM" />
+                        <model:ChatMessageModel
+                            Content="Just working on some projects. This will be a long text but did you ever hear about our saviour jesus christ? He gave up on his life just for us."
+                            SenderNickname="User2"
+                            SenderUsername="user2"
+                            TimeSent="2024-05-10 09:45 AM" />
+                        <model:ChatMessageModel
+                            Content="Just working on some projects. This will be a long text but did you ever hear about our saviour jesus christ? He gave up on his life just for us."
+                            SenderNickname="User2"
+                            SenderUsername="user2"
+                            TimeSent="2024-05-10 09:45 AM" />
+                        <model:ChatMessageModel
+                            Content="Just working on some projects. This will be a long text but did you ever hear about our saviour jesus christ? He gave up on his life just for us."
+                            SenderNickname="User2"
+                            SenderUsername="user2"
+                            TimeSent="2024-05-10 09:45 AM" />
+                        <model:ChatMessageModel
+                            Content="Just working on some projects. This will be a long text but did you ever hear about our saviour jesus christ? He gave up on his life just for us."
+                            SenderNickname="User2"
+                            SenderUsername="user2"
+                            TimeSent="2024-05-10 09:45 AM" />
+                        <model:ChatMessageModel
+                            Content="Just working on some projects. This will be a long text but did you ever hear about our saviour jesus christ? He gave up on his life just for us."
+                            SenderNickname="User2"
+                            SenderUsername="user2"
+                            TimeSent="2024-05-10 09:45 AM" />
+                        <model:ChatMessageModel
+                            Content="That's great!"
+                            SenderNickname="User1"
+                            SenderUsername="user1"
+                            TimeSent="2024-05-10 09:50 AM" />
+                        <model:ChatMessageModel
+                            Content="What have you been up to lately?"
+                            SenderNickname="User1"
+                            SenderUsername="user1"
+                            TimeSent="2024-05-10 09:40 AM" />
+                        <model:ChatMessageModel
+                            Content="Just working on some projects. This will be a long text but did you ever hear about our saviour jesus christ? He gave up on his life just for us."
+                            SenderNickname="User2"
+                            SenderUsername="user2"
+                            TimeSent="2024-05-10 09:45 AM" />
+                        <model:ChatMessageModel
+                            Content="What have you been up to lately?"
+                            SenderNickname="User1"
+                            SenderUsername="user1"
+                            TimeSent="2024-05-10 09:40 AM" />
+                        <model:ChatMessageModel
+                            Content="Just working on some projects. This will be a long text but did you ever hear about our saviour jesus christ? He gave up on his life just for us."
+                            SenderNickname="User2"
+                            SenderUsername="user2"
+                            TimeSent="2024-05-10 09:45 AM" />
+                    </x:Array>
+                </ListView.ItemsSource>-->
+            </ListView>
+        </DockPanel>
+    </Grid>
+</mah:MetroWindow>
