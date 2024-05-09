@@ -3,17 +3,14 @@ This is a chat app for Windows made as a for practice and example using WPF and 
 More information about the techstack used and images of the app as well as the database structure are listed below.   
 
 ## Frontend
-Windows Presentation Foundation (.Net Framework 4.8) themed with [MahApps.Metro](https://github.com/MahApps/MahApps.Metro).  
-
-I chose WPF for this demo as it doesn't need to be crossplatform and it is better than alternatives (winforms) for rapid development, though I would use [Avalonia](https://avaloniaui.net/) if it needed to be crossplatform.  
-The reason I chose Net Framework 4.8 for WPF is it is bundled with all modern Windoww machines so I don't need to package the runtime with the app to make it self-contained. Also [build tools/extensions of my choice](https://github.com/Fody/Costura) help me make the build super compact.
+- **Technology:** Windows Presentation Foundation (.Net Framework 4.8) themed with [MahApps.Metro](https://github.com/MahApps/MahApps.Metro).
+- **Choice Rationale:** Opted for WPF due to its suitability for rapid development and lack of cross-platform requirements. Would consider [Avalonia](https://avaloniaui.net/) if cross-platform functionality were needed.
+- **Framework Version:** Selected .Net Framework 4.8 for WPF as it's pre-installed on modern Windows machines, eliminating the need to package the runtime with the app. Utilized [build tools/extensions](https://github.com/Fody/Costura) for a compact build.
 
 ## Backend
-I used [Firebase Realtime Database](https://firebase.google.com/docs/database) with the [FireSharp](https://github.com/bugthesystem/FireSharp) as the API.  
-
-Most of the backend is implemented in a single class called [ChatDatabase](https://github.com/SametHope/FireChat/blob/main/Database/ChatDatabase.cs) which uses FireSharp features such as `FirebaseConfig`, `FirebaseClient`, `Client.GetAsync`, `Client.SetAsync`, `Client.DeleteAsync`, `Client.PushAsync` and `Client.OnAsync` which is most of there is on the API.  
-
-I hash and salt the password using [Bcrypt.Net-Next](https://github.com/BcryptNet/bcrypt.net) and don't store them as raw text on the database because I find it important even for a demo.
+- **Database:** Used [Firebase Realtime Database](https://firebase.google.com/docs/database) with [FireSharp](https://github.com/bugthesystem/FireSharp) as the API.
+- **Implementation:** Backend operations are mainly handled in a single class named [ChatDatabase](https://github.com/SametHope/FireChat/blob/main/Database/ChatDatabase.cs), a basic wrapper around FireSharp tailored for my usage, utilizing FireSharp API features such as `FirebaseConfig`, `FirebaseClient`, `Client.GetAsync`, `Client.SetAsync`, `Client.DeleteAsync`, `Client.PushAsync`, and `Client.OnAsync`.
+- **Security Measures:** Used [Bcrypt.Net-Next](https://github.com/BcryptNet/bcrypt.net) for hashing and salting passwords before storage in the database, caring for security even in a demo environment.
 
 ## Images
 ### Project Solution Structure
@@ -44,5 +41,15 @@ This screen is displayed if the connection with the database is not established.
 ![Ekran görüntüsü 2024-05-09 110222](https://github.com/SametHope/FireChat/assets/85421686/8a41ffb8-df6a-41af-b171-ba00cac92183)  
 
 # Notes
-The secret key and database path is hardcoded. This is fine for me as my account is a spark aka free account so the server will simply deny requests if limits are reached.  
-I did not configure any permissions so anyone can do anything with this knowledge, keep this in mind when submitting any information to the database and **do not use your real passwords**.
+
+## Security
+- The secret key and database path are hardcoded.
+- This setup suits my use case as I'm on a Spark (free) account; excess requests are simply denied by the server.
+- Permissions are not configured, meaning anyone can manipulate data. Exercise caution and **avoid using real passwords**.
+
+## Miscellaneous
+- The project lacks a proper commit history due to not starting with version control.
+- Originally developed using Winforms, but due to compatibility issues with my custom DPI settings, I rewrote the app using WPF.
+- Avalonia was initially considered, but limited knowledge in WPF/xaml/MVVM led to choosing WPF.
+- Opting for WPF also reduced the executable size to ~2.5 MB, which I find favorable.
+
