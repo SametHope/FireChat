@@ -1,6 +1,7 @@
 # FireChat
-This is a chat app for Windows made as a for practice and example using WPF and Firebase Realtime Database with FireSharp.  
-More information about the techstack used and images of the app as well as the database structure are listed below.   
+A chat app demo for Windows made for practice and example purposes using WPF and Firebase Realtime Database with FireSharp.  
+  
+More information about the techs used and images of the app as well as the database and project structure are listed below.   
 
 ## Frontend
 - **Technology:** Windows Presentation Foundation (.Net Framework 4.8) themed with [MahApps.Metro](https://github.com/MahApps/MahApps.Metro).
